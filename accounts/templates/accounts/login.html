@@ -1,0 +1,183 @@
+{% load crispy_forms_tags %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+      integrity="sha384-DyZ88mC6Up2uqS19WbfQq5i7N2OdP+7RkWj/2C6/YRm9j9Qe9z9Q4c5hlsA5H5B9" 
+      crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, rgba(105,105,205,1) 0%, rgba(0,191,165,1) 100%);
+        }
+
+        .container {
+            display: flex;
+            height: 80vh;
+            width: 90vw;
+            max-width: 900px;
+            box-shadow: 0 10px 25px rgba(10, 75, 90, 0.3);
+            overflow: hidden;
+            border-radius: 15px;
+            background: #fff;
+        }
+
+        .left-section {
+            flex: 1;
+            background: url('https://img.freepik.com/premium-vector/man-freelancer-sits-table-cafe-coworking-space_575670-1291.jpg') 
+                no-repeat center center;
+            background-size: cover;
+            display: none;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .login-form .form-control {
+            position: relative;
+            margin-bottom: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #f1f1f1;
+        }
+
+        .login-form input {
+            border: none;
+            font-size: 1rem;
+            color: #333;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: #43A047;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .social-icon.google {
+            background-color: #DB4437;
+        }
+
+        .social-icon.facebook {
+            background-color: #4267B2;
+        }
+
+        .social-icon.twitter {
+            background-color: #1DA1F2;
+        }
+
+        .message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .left-section {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section"></div>
+        <div class="right-section">
+            <div class="login-container">
+                <h2 class="login-title"><i class="fas fa-user-circle"></i> Login</h2>
+                <div class="text-danger">
+                    {% if messages %} 
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% if form.non_field_errors %}
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <form class="login-form" method="POST">
+                    {% csrf_token %}
+                    <div class="form-control">
+                        <input type="text" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                    <div class="message">
+                        <p>Not registered? <a href="{% url 'user-register' %}">Create an account</a></p>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS19WbfQq5i7N2OdP+7RkWj/2C6/YRm9j9Qe9z9Q4c5hlsA5H5B9" crossorigin="anonymous">
+
+</body>
+</html>
